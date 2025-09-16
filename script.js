@@ -130,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
             
-            const productCard = e.target.closest('.product-card, .bridal-card');
+            const productCard = e.target.closest('.product-card, .bridal-card, .new-card');
             if (productCard) {
                 const productImage = productCard.querySelector('img');
                 const productName = productCard.querySelector('h3').textContent;
-                const productCategory = productCard.querySelector('.product-category, .bridal-category').textContent;
+                const productCategory = productCard.querySelector('.product-category, .bridal-category, .new-category').textContent;
                 
                 console.log('Product details:', { productName, productCategory, imageSrc: productImage.src });
                 showModal(productImage.src, productName, productCategory);
@@ -397,10 +397,10 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
             
-            const productCard = e.target.closest('.product-card, .bridal-card');
+            const productCard = e.target.closest('.product-card, .bridal-card, .new-card');
             const productImage = productCard.querySelector('img').src;
             const productName = productCard.querySelector('h3').textContent;
-            const productCategory = productCard.querySelector('.product-category, .bridal-category').textContent;
+            const productCategory = productCard.querySelector('.product-category, .bridal-category, .new-category').textContent;
             
             const isInWishlist = wishlist.some(item => item.name === productName);
             
