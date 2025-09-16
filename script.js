@@ -317,7 +317,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const wishlistBtns = document.querySelectorAll('.wishlist-btn');
         wishlistBtns.forEach(btn => {
             const productCard = btn.closest('.product-card, .bridal-card, .new-card');
-            const productName = productCard.querySelector('h3, .new-info h3').textContent;
+            if (!productCard) {
+                console.warn('No product card found for wishlist button:', btn);
+                return;
+            }
+            
+            const productNameElement = productCard.querySelector('h3, .new-info h3');
+            if (!productNameElement) {
+                console.warn('No product name found for wishlist button:', btn);
+                return;
+            }
+            
+            const productName = productNameElement.textContent;
             const isInWishlist = wishlist.some(item => item.name === productName);
             
             if (isInWishlist) {
@@ -416,9 +427,23 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             
             const productCard = e.target.closest('.product-card, .bridal-card, .new-card');
-            const productImage = productCard.querySelector('img').src;
-            const productName = productCard.querySelector('h3, .new-info h3').textContent;
-            const productCategory = productCard.querySelector('.product-category, .bridal-category, .new-category').textContent;
+            if (!productCard) {
+                console.warn('No product card found for wishlist button click');
+                return;
+            }
+            
+            const productImage = productCard.querySelector('img');
+            const productNameElement = productCard.querySelector('h3, .new-info h3');
+            const productCategoryElement = productCard.querySelector('.product-category, .bridal-category, .new-category');
+            
+            if (!productImage || !productNameElement || !productCategoryElement) {
+                console.warn('Missing product elements for wishlist button click');
+                return;
+            }
+            
+            const productImageSrc = productImage.src;
+            const productName = productNameElement.textContent;
+            const productCategory = productCategoryElement.textContent;
             
             const isInWishlist = wishlist.some(item => item.name === productName);
             
@@ -426,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const index = wishlist.findIndex(item => item.name === productName);
                 removeFromWishlist(index);
             } else {
-                addToWishlist(productImage, productName, productCategory);
+                addToWishlist(productImageSrc, productName, productCategory);
             }
         }
     });
