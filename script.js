@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Newsletter modal element:', newsletterModal);
     console.log('Newsletter subscribed status:', localStorage.getItem('newsletterSubscribed'));
     
-    // Show newsletter popup after 5 seconds
+    // Show newsletter popup after 2 seconds (reduced for testing)
     setTimeout(() => {
         console.log('Timeout triggered, checking subscription status');
         // Check if user has already subscribed (localStorage)
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.log('User already subscribed, not showing popup');
         }
-    }, 5000);
+    }, 2000);
     
     // Close newsletter modal
     function closeNewsletterModal() {
