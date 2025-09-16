@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test - Frenchkiss Boutique</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .image-test { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .image-test img { max-width: 200px; height: auto; margin: 10px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Image Test - Frenchkiss Boutique</h1>
+    <p>This page tests if all images are loading correctly.</p>
+    
+    <div class="image-test">
+        <h3>Hero Images:</h3>
+        <img src="images/homepage.jpg" alt="Homepage 1" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+        <img src="images/homepage%202.jpg" alt="Homepage 2" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+    </div>
+    
+    <div class="image-test">
+        <h3>About Image:</h3>
+        <img src="images/about%20us.jpg" alt="About Us" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+    </div>
+    
+    <div class="image-test">
+        <h3>Newsletter Image:</h3>
+        <img src="images/470215882_18384529318111091_4228504344956034094_n.jpg" alt="Newsletter" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+    </div>
+    
+    <div class="image-test">
+        <h3>Sample Product Images:</h3>
+        <img src="images/464206544_18376458844111091_6993461698641332055_n.jpg" alt="Product 1" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+        <img src="images/465802467_18378627376111091_2343665044830854821_n.jpg" alt="Product 2" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+    </div>
+    
+    <div class="image-test">
+        <h3>Sample Bridal Images:</h3>
+        <img src="images/bridal/363310077_18306229930111091_4936774261627101316_n.jpg" alt="Bridal 1" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+        <img src="images/bridal/363379701_18306229933111091_7829032607967540570_n.jpg" alt="Bridal 2" onerror="this.style.border='2px solid red'; this.alt='ERROR: Image not found';">
+    </div>
+    
+    <p><strong>Instructions:</strong> If any image shows a red border, that means the image file is missing or the path is incorrect.</p>
+</body>
+</html>
