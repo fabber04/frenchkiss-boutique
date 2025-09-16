@@ -131,13 +131,31 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             
             const productCard = e.target.closest('.product-card, .bridal-card, .new-card');
+            console.log('Product card found:', productCard);
+            
             if (productCard) {
                 const productImage = productCard.querySelector('img');
-                const productName = productCard.querySelector('h3').textContent;
-                const productCategory = productCard.querySelector('.product-category, .bridal-category, .new-category').textContent;
+                const productName = productCard.querySelector('h3, .new-info h3');
+                const productCategory = productCard.querySelector('.product-category, .bridal-category, .new-category');
                 
-                console.log('Product details:', { productName, productCategory, imageSrc: productImage.src });
-                showModal(productImage.src, productName, productCategory);
+                console.log('Elements found:', {
+                    image: productImage,
+                    name: productName,
+                    category: productCategory
+                });
+                
+                if (productName && productCategory) {
+                    console.log('Product details:', { 
+                        productName: productName.textContent, 
+                        productCategory: productCategory.textContent, 
+                        imageSrc: productImage.src 
+                    });
+                    showModal(productImage.src, productName.textContent, productCategory.textContent);
+                } else {
+                    console.error('Missing product name or category');
+                }
+            } else {
+                console.error('No product card found');
             }
         }
     });
@@ -298,8 +316,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateWishlistButtons() {
         const wishlistBtns = document.querySelectorAll('.wishlist-btn');
         wishlistBtns.forEach(btn => {
-            const productCard = btn.closest('.product-card, .bridal-card');
-            const productName = productCard.querySelector('h3').textContent;
+            const productCard = btn.closest('.product-card, .bridal-card, .new-card');
+            const productName = productCard.querySelector('h3, .new-info h3').textContent;
             const isInWishlist = wishlist.some(item => item.name === productName);
             
             if (isInWishlist) {
@@ -399,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const productCard = e.target.closest('.product-card, .bridal-card, .new-card');
             const productImage = productCard.querySelector('img').src;
-            const productName = productCard.querySelector('h3').textContent;
+            const productName = productCard.querySelector('h3, .new-info h3').textContent;
             const productCategory = productCard.querySelector('.product-category, .bridal-category, .new-category').textContent;
             
             const isInWishlist = wishlist.some(item => item.name === productName);
