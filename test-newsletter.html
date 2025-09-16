@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Test - Frenchkiss Boutique</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #d4a574;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .test-button:hover {
+            background: #b88f8f;
+        }
+        .image-test {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .image-test img {
+            max-width: 300px;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Newsletter Popup Test</h1>
+        
+        <h2>Test Newsletter Popup</h2>
+        <button class="test-button" onclick="showNewsletterPopup()">Show Newsletter Popup</button>
+        <button class="test-button" onclick="clearNewsletterStatus()">Clear Subscription Status</button>
+        
+        <h2>Test Newsletter Image</h2>
+        <div class="image-test">
+            <h3>Newsletter Image Test:</h3>
+            <img src="images/470215882_18384529318111091_4228504344956034094_n.jpg" 
+                 alt="Newsletter Image" 
+                 onerror="this.style.border='3px solid red'; this.alt='ERROR: Image not found';">
+            <p>If you see a red border, the image is not loading.</p>
+        </div>
+        
+        <h2>Test Other Images</h2>
+        <div class="image-test">
+            <h3>Homepage Images:</h3>
+            <img src="images/homepage.jpg" alt="Homepage 1" onerror="this.style.border='2px solid red';">
+            <img src="images/homepage%202.jpg" alt="Homepage 2" onerror="this.style.border='2px solid red';">
+        </div>
+        
+        <div class="image-test">
+            <h3>About Image:</h3>
+            <img src="images/about%20us.jpg" alt="About Us" onerror="this.style.border='2px solid red';">
+        </div>
+    </div>
+
+    <!-- Newsletter Popup Modal -->
+    <div id="newsletterModal" class="newsletter-modal">
+        <div class="modal-overlay"></div>
+        <div class="newsletter-content">
+            <button class="newsletter-close">&times;</button>
+            <div class="newsletter-body">
+                <div class="newsletter-text">
+                    <h2>BECOME A FRENCHKISS VIP!</h2>
+                    <p>Sign up for our exclusive newsletter. Get early access to new collections, special offers, and insider fashion tips. No spam, ever!</p>
+                    <div class="newsletter-social-proof">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Absolutely love Frenchkiss! Their pieces are stunning!" - Sarah M.</p>
+                    </div>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-submit">SIGN UP</button>
+                    </form>
+                </div>
+                <div class="newsletter-image">
+                    <img src="images/470215882_18384529318111091_4228504344956034094_n.jpg" alt="Frenchkiss Boutique - Golden Hour Bridal">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the same CSS as main site -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+        // Newsletter Popup Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Newsletter popup script loaded');
+            const newsletterModal = document.getElementById('newsletterModal');
+            const newsletterClose = document.querySelector('.newsletter-close');
+            const newsletterOverlay = document.querySelector('.newsletter-modal .modal-overlay');
+            const newsletterForm = document.querySelector('.newsletter-form');
+            
+            console.log('Newsletter modal element:', newsletterModal);
+            
+            // Close newsletter modal
+            function closeNewsletterModal() {
+                newsletterModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+            
+            newsletterClose.addEventListener('click', closeNewsletterModal);
+            newsletterOverlay.addEventListener('click', closeNewsletterModal);
+            
+            // Close newsletter modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && newsletterModal.classList.contains('show')) {
+                    closeNewsletterModal();
+                }
+            });
+            
+            // Handle newsletter form submission
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = newsletterForm.querySelector('input[type="email"]').value;
+                
+                if (email) {
+                    // Show success message
+                    newsletterForm.innerHTML = `
+                        <div class="newsletter-success">
+                            <div class="success-content">
+                                <i class="fas fa-heart"></i>
+                                <h3>Welcome to the Frenchkiss Family!</h3>
+                                <p>Thank you for subscribing! Check your email for exclusive offers.</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Save subscription status
+                    localStorage.setItem('newsletterSubscribed', 'true');
+                    
+                    // Auto-close after 3 seconds
+                    setTimeout(() => {
+                        closeNewsletterModal();
+                    }, 3000);
+                }
+            });
+            
+            // Test function to show popup immediately
+            window.showNewsletterPopup = function() {
+                console.log('Manually showing newsletter popup');
+                newsletterModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            };
+            
+            // Test function to clear subscription status
+            window.clearNewsletterStatus = function() {
+                localStorage.removeItem('newsletterSubscribed');
+                console.log('Newsletter subscription status cleared');
+            };
+        });
+    </script>
+</body>
+</html>
