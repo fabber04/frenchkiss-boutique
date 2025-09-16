@@ -276,7 +276,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize wishlist
     function initWishlist() {
         updateWishlistDisplay();
-        updateWishlistButtons();
+        
+        // Delay wishlist button update to ensure DOM is ready
+        setTimeout(() => {
+            updateWishlistButtons();
+        }, 100);
     }
     
     // Update wishlist display
@@ -314,8 +318,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Update wishlist buttons on product cards
     function updateWishlistButtons() {
+        // Check if DOM is ready
+        if (document.readyState === 'loading') {
+            console.log('DOM not ready, skipping wishlist button update');
+            return;
+        }
+        
         const wishlistBtns = document.querySelectorAll('.wishlist-btn');
-        wishlistBtns.forEach(btn => {
+        console.log('Found wishlist buttons:', wishlistBtns.length);
+        
+        wishlistBtns.forEach((btn, index) => {
+            console.log(`Processing wishlist button ${index + 1}:`, btn);
+            
             const productCard = btn.closest('.product-card, .bridal-card, .new-card');
             if (!productCard) {
                 console.warn('No product card found for wishlist button:', btn);
